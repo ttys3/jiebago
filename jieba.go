@@ -193,7 +193,7 @@ func (seg *Segmenter) cutDAG(sentence string) []string {
 					result = append(result, bufString)
 				} else {
 					if v, ok := seg.dict.Frequency(bufString); !ok || v == 0.0 {
-						for x := range finalseg.Cut(bufString) {
+						for _, x := range finalseg.Cut(bufString) {
 							result = append(result, x)
 						}
 					} else {
@@ -215,7 +215,7 @@ func (seg *Segmenter) cutDAG(sentence string) []string {
 			result = append(result, bufString)
 		} else {
 			if v, ok := seg.dict.Frequency(bufString); !ok || v == 0.0 {
-				for t := range finalseg.Cut(bufString) {
+				for _, t := range finalseg.Cut(bufString) {
 					result = append(result, t)
 				}
 			} else {
