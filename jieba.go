@@ -165,10 +165,16 @@ func (seg *Segmenter) calc(runes []rune) map[int]route {
 	return rs
 }
 
+// ratio words and letters in an article commonly
+const (
+	RatioLetterWord     float32 = 1.5
+	RatioLetterWordFull float32 = 1
+)
+
 type cutFunc func(sentence string) []string
 
 func (seg *Segmenter) cutDAG(sentence string) []string {
-	result := make([]string, 0, 10)
+	result := make([]string, 0, int(float32(len(sentence))/RatioLetterWord)+1)
 
 	runes := []rune(sentence)
 	routes := seg.calc(runes)
@@ -224,7 +230,7 @@ func (seg *Segmenter) cutDAG(sentence string) []string {
 }
 
 func (seg *Segmenter) cutDAGNoHMM(sentence string) []string {
-	result := make([]string, 0, 10)
+	result := make([]string, 0, int(float32(len(sentence))/RatioLetterWord)+1)
 
 	runes := []rune(sentence)
 	routes := seg.calc(runes)
@@ -259,7 +265,7 @@ func (seg *Segmenter) cutDAGNoHMM(sentence string) []string {
 // Accurate mode attempts to cut the sentence into the most accurate
 // segmentations, which is suitable for text analysis.
 func (seg *Segmenter) Cut(sentence string, hmm bool) []string {
-	result := make([]string, 0, 10)
+	result := make([]string, 0, int(float32(len(sentence))/RatioLetterWord)+1)
 	var cut cutFunc
 	if hmm {
 		cut = seg.cutDAG
@@ -292,7 +298,7 @@ func (seg *Segmenter) Cut(sentence string, hmm bool) []string {
 }
 
 func (seg *Segmenter) cutAll(sentence string) []string {
-	result := make([]string, 0, 10)
+	result := make([]string, 0, int(float32(len(sentence))/RatioLetterWord)+1)
 
 	runes := []rune(sentence)
 	dag := seg.dag(runes)
@@ -324,7 +330,7 @@ func (seg *Segmenter) cutAll(sentence string) []string {
 // Full mode gets all the possible words from the sentence.
 // Fast but not accurate.
 func (seg *Segmenter) CutAll(sentence string) []string {
-	result := make([]string, 0, 10)
+	result := make([]string, 0, int(float32(len(sentence))/RatioLetterWordFull)+1)
 
 	for _, block := range util.RegexpSplit(reHanCutAll, sentence, -1) {
 		if len(block) == 0 {
@@ -349,7 +355,7 @@ func (seg *Segmenter) CutAll(sentence string) []string {
 // into several short words, which can raise the recall rate.
 // Suitable for search engines.
 func (seg *Segmenter) CutForSearch(sentence string, hmm bool) []string {
-	result := make([]string, 0, 10)
+	result := make([]string, 0, int(float32(len(sentence))/RatioLetterWordFull)+1)
 
 	for _, word := range seg.Cut(sentence, hmm) {
 		runes := []rune(word)
