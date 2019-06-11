@@ -10,6 +10,10 @@ import (
 	"strings"
 )
 
+const (
+	TokenFieldNum = 3
+)
+
 // DictLoader is the interface that could add one token or load
 // tokens from channel.
 type DictLoader interface {
@@ -30,7 +34,7 @@ func loadDictionary(file *os.File) (<-chan Token, <-chan error) {
 		var err error
 		for scanner.Scan() {
 			line = scanner.Text()
-			fields = strings.Split(line, " ")
+			fields = strings.SplitN(line, " ", TokenFieldNum)
 			token.text = strings.TrimSpace(strings.Replace(fields[0], "\ufeff", "", 1))
 			if length := len(fields); length > 1 {
 				token.frequency, err = strconv.ParseFloat(fields[1], 64)

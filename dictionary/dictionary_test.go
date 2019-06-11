@@ -57,3 +57,14 @@ func TestAddToken(t *testing.T) {
 		t.Fatalf("Failed to add token, got pos %s, expected \"a\"", d.posMap["好用"])
 	}
 }
+
+func benchmarkLoadDictionary(dict string, round int) {
+	for n := 0; n < round; n++ {
+		d := &Dict{freqMap: make(map[string]float64), posMap: make(map[string]string)}
+		LoadDictionary(d, dict)
+	}
+}
+
+func BenchmarkLoadDictionary1(b *testing.B)  { benchmarkLoadDictionary("../dict.txt", 1) }
+func BenchmarkLoadDictionary10(b *testing.B)  { benchmarkLoadDictionary("../dict.txt", 10) }
+func BenchmarkLoadDictionary100(b *testing.B)  { benchmarkLoadDictionary("../dict.txt", 100) }
