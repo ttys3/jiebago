@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/blevesearch/bleve"
+	_ "github.com/blevesearch/bleve/analysis/analyzer/custom"
 	_ "github.com/wangbin/jiebago/tokenizers"
 )
 
