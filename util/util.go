@@ -1,7 +1,11 @@
 // Package util contains some util functions used by jiebago.
 package util
 
-import "regexp"
+import (
+	"encoding/gob"
+	"os"
+	"regexp"
+)
 
 /*
 RegexpSplit split slices s into substrings separated by the expression and
@@ -50,4 +54,24 @@ func RegexpSplit(re *regexp.Regexp, s string, n int) []string {
 	}
 
 	return strings
+}
+
+func WriteGob(filePath string,object interface{}) error {
+	file, err := os.Create(filePath)
+	if err == nil {
+		encoder := gob.NewEncoder(file)
+		encoder.Encode(object)
+	}
+	file.Close()
+	return err
+}
+
+func ReadGob(filePath string,object interface{}) error {
+	file, err := os.Open(filePath)
+	if err == nil {
+		decoder := gob.NewDecoder(file)
+		err = decoder.Decode(object)
+	}
+	file.Close()
+	return err
 }

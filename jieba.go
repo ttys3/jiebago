@@ -2,7 +2,9 @@
 package jiebago
 
 import (
+	"fmt"
 	"math"
+	"path/filepath"
 	"regexp"
 	"strings"
 
@@ -95,7 +97,26 @@ func (seg *Segmenter) SuggestFrequency(words ...string) float64 {
 // LoadDictionary is called, previously loaded dictionary will be cleard.
 func (seg *Segmenter) LoadDictionary(fileName string) error {
 	seg.dict = &Dictionary{freqMap: make(map[string]float64)}
-	return seg.dict.loadDictionary(fileName)
+	gobFname := fmt.Sprintf("%s/dict.cache", filepath.Dir(fileName))
+	if err := util.ReadGob(gobFname, &seg.dict.freqMap); err == nil {
+		//fmt.Printf("load %s from gob successfully.\n", gobFname)
+		return nil
+	} else {
+		fmt.Printf("failed to load %s from gob.\n", err.Error())
+	}
+	if err := seg.dict.loadDictionary(fileName); err == nil {
+		seg.dict.Lock()
+		err = util.WriteGob(gobFname, seg.dict.freqMap)
+		if err != nil {
+			seg.dict.Unlock()
+			panic(err)
+		}
+		fmt.Printf("save dict to gob %s successfully.\n", gobFname)
+		seg.dict.Unlock()
+		return nil
+	} else {
+		return err
+	}
 }
 
 // LoadUserDictionary loads a user specified dictionary, it must be called
