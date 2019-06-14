@@ -26,3 +26,5 @@ require (
 	go.etcd.io/bbolt v1.3.3 // indirect
 	golang.org/x/net v0.0.0-20190611141213-3f473d35a33a // indirect
 )
+
+replace github.com/blevesearch/bleve v0.7.1-0.20190611112136-bfa42c077826 => github.com/ttys3/bleve v0.7.1-0.20190614102650-b9799eb0e097

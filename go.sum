@@ -1,7 +1,5 @@
 github.com/RoaringBitmap/roaring v0.4.18 h1:nh8Ngxctxt5QAoMLuR7MHJe4jEqpn+EnsdgDWPryQWo=
 github.com/RoaringBitmap/roaring v0.4.18/go.mod h1:D3qVegWTmfCaX4Bl5CrBE9hfrSrrXIr8KVNvRsDi1NI=
-github.com/blevesearch/bleve v0.7.1-0.20190611112136-bfa42c077826 h1:D4XbQmD2osnpU0GUduoroKTiHhf5+LphN8OU186HVVs=
-github.com/blevesearch/bleve v0.7.1-0.20190611112136-bfa42c077826/go.mod h1:Y2lmIkzV6mcNfAnAdOd+ZxHkHchhBfU/xroGIp61wfw=
 github.com/blevesearch/blevex v0.0.0-20180227211930-4b158bb555a3 h1:U6vnxZrTfItfiUiYx0lf/LgHjRSfaKK5QHSom3lEbnA=
 github.com/blevesearch/blevex v0.0.0-20180227211930-4b158bb555a3/go.mod h1:WH+MU2F4T0VmSdaPX+Wu5GYoZBrYWdOZWSjzvYcDmqQ=
 github.com/blevesearch/go-porterstemmer v1.0.2 h1:qe7n69gBd1OLY5sHKnxQHIbzn0LNJA4hpAf+5XDxV2I=
@@ -76,6 +74,8 @@ github.com/tecbot/gorocksdb v0.0.0-20190519120508-025c3cf4ffb4 h1:ktZy3TUr3YgNRA
 github.com/tecbot/gorocksdb v0.0.0-20190519120508-025c3cf4ffb4/go.mod h1:ahpPrc7HpcfEWDQRZEmnXMzHY03mLDYMCxeDzy46i+8=
 github.com/tinylib/msgp v1.1.0 h1:9fQd+ICuRIu/ue4vxJZu6/LzxN0HwMds2nq/0cFvxHU=
 github.com/tinylib/msgp v1.1.0/go.mod h1:+d+yLhGm8mzTaHzB+wgMYrodPfmZrzkirds8fDWklFE=
+github.com/ttys3/bleve v0.7.1-0.20190614102650-b9799eb0e097 h1:Ru+ZjuNrQ4XqdiRaBQAzgWKm5mvqSlBQ04Id5e2HbyI=
+github.com/ttys3/bleve v0.7.1-0.20190614102650-b9799eb0e097/go.mod h1:Vn39P4wfQeWPN56qKzIaQh5uH66Ilu1fXmdP16EjQs4=
 github.com/willf/bitset v1.1.10 h1:NotGKqX0KwQ72NUzqrjZq5ipPNDQex9lo3WpaS8L2sc=
 github.com/willf/bitset v1.1.10/go.mod h1:RjeCKbqT1RxIR/KWY6phxZiaY1IyutSBfGjNPySAYV4=
 go.etcd.io/bbolt v1.3.3 h1:MUGmc65QhB3pIlaQ5bB4LwqSj6GIonVJXpZiaKNyaKk=
