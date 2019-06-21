@@ -97,7 +97,7 @@ func (seg *Segmenter) SuggestFrequency(words ...string) float64 {
 // LoadDictionary is called, previously loaded dictionary will be cleard.
 func (seg *Segmenter) LoadDictionary(fileName string) error {
 	seg.dict = &Dictionary{freqMap: make(map[string]float64)}
-	gobFname := fmt.Sprintf("%s/dict.cache", filepath.Dir(fileName))
+	gobFname := filepath.Join(filepath.Dir(fileName), "dict.cache")
 	if err := util.ReadGob(gobFname, &seg.dict.freqMap); err == nil {
 		//fmt.Printf("load %s from gob successfully.\n", gobFname)
 		return nil
