@@ -132,7 +132,7 @@ func newIndexUsing(path string, mapping mapping.IndexMapping, indexType string, 
 	return &rv, nil
 }
 
-func openIndexUsing(path string, runtimeConfig map[string]interface{}) (rv *indexImpl, err error) {
+func openIndexUsing(path string, im mapping.IndexMapping, runtimeConfig map[string]interface{}) (rv *indexImpl, err error) {
 	rv = &indexImpl{
 		path: path,
 		name: path,
@@ -179,26 +179,32 @@ func openIndexUsing(path string, runtimeConfig map[string]interface{}) (rv *inde
 		return nil, err
 	}
 
-	// now load the mapping
-	indexReader, err := rv.i.Reader()
-	if err != nil {
-		return nil, err
-	}
-	defer func() {
-		if cerr := indexReader.Close(); cerr != nil && err == nil {
-			err = cerr
+	var imImpl *mapping.IndexMappingImpl
+	if im == nil {
+		// now load the mapping
+		indexReader, err := rv.i.Reader()
+		if err != nil {
+			return nil, err
 		}
-	}()
+		defer func() {
+			if cerr := indexReader.Close(); cerr != nil && err == nil {
+				err = cerr
+			}
+		}()
 
-	mappingBytes, err := indexReader.GetInternal(mappingInternalKey)
-	if err != nil {
-		return nil, err
-	}
+		mappingBytes, err := indexReader.GetInternal(mappingInternalKey)
+		if err != nil {
+			return nil, err
+		}
 
-	var im *mapping.IndexMappingImpl
-	err = json.Unmarshal(mappingBytes, &im)
-	if err != nil {
-		return nil, fmt.Errorf("error parsing mapping JSON: %v\nmapping contents:\n%s", err, string(mappingBytes))
+		err = json.Unmarshal(mappingBytes, &imImpl)
+		if err != nil {
+			return nil, fmt.Errorf("error parsing mapping JSON: %v\nmapping contents:\n%s", err, string(mappingBytes))
+		}
+		im = imImpl
+	} else {
+		// use exist mapping
+		//do nothing here
 	}
 
 	// mark the index as open

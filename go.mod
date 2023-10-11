@@ -24,7 +24,7 @@ require (
 	github.com/syndtr/goleveldb v1.0.0 // indirect
 	github.com/tecbot/gorocksdb v0.0.0-20190519120508-025c3cf4ffb4 // indirect
 	go.etcd.io/bbolt v1.3.3 // indirect
-	golang.org/x/net v0.0.0-20190611141213-3f473d35a33a // indirect
+	golang.org/x/net v0.17.0 // indirect
 )
 
 replace github.com/blevesearch/bleve v0.7.1-0.20190611112136-bfa42c077826 => github.com/ttys3/bleve v0.7.1-0.20190614102650-b9799eb0e097
